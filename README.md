@@ -1,4 +1,4 @@
-# GitLab Stale Cleaner
+# GitLab Stale Branch Cleaner
 
 A Node.js CLI to delete stale branches from your GitLab projects.
 
@@ -14,6 +14,7 @@ npx gitlab-stale-cleaner
 
 - Deletes branches that haven't been updated in X days.
 - Skips protected and main branches.
+- Skips custom branch names(space-separated)
 - Dry run mode to preview deletions.
 
 ## Usage
