@@ -1,6 +1,6 @@
 {
   "name": "gitlab-stale-branch-cleaner",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "CLI to delete stale GitLab branches programmatically",
   "main": "lib/cleaner.js",
   "bin": {
