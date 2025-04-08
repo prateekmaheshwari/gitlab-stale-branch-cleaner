@@ -1,0 +1,27 @@
+{
+  "name": "gitlab-stale-cleaner",
+  "version": "1.0.0",
+  "description": "CLI to delete stale GitLab branches programmatically",
+  "main": "lib/cleaner.js",
+  "bin": {
+    "gitlab-stale-cleaner": "./bin/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node ./bin/index.js"
+  },
+  "keywords": [
+    "gitlab",
+    "branches",
+    "cleanup",
+    "cli",
+    "automation"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "chalk": "^5.3.0",
+    "inquirer": "^9.2.11"
+  }
+}
