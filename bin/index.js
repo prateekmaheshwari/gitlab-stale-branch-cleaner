@@ -5,6 +5,8 @@ import runCleaner from '../lib/cleaner.js';
 
 const questions = [
   {
+    type: 'password',
+    mask: '*',
     name: 'gitlabToken',
     message: 'GitLab Personal Access Token:',
     validate: input => input ? true : 'Token is required',
@@ -24,6 +26,11 @@ const questions = [
     message: 'Days to consider a branch stale:',
     default: 90,
     validate: input => !isNaN(input) && Number(input) > 0 ? true : 'Enter a valid number',
+  },
+  {
+    name: 'excludedBranches',
+    message: 'Branches to exclude (space-separated):',
+    filter: input => input.trim().split(/\s+/)
   },
   {
     type: 'confirm',
