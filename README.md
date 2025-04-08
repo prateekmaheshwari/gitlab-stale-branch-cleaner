@@ -7,7 +7,7 @@ A Node.js CLI to delete stale branches from your GitLab projects.
 Run directly using npx:
 
 ```bash
-npx gitlab-stale-cleaner
+npx gitlab-stale-branch-cleaner
 ```
 
 ## Features
