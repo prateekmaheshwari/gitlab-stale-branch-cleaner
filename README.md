@@ -39,6 +39,8 @@ These lead to:
 
 ## Installation
 
+> The tool is safe by default and runs in dry-run mode unless 
+explicitly disabled.
 
 No global install required. Run directly using npx:
 
@@ -53,7 +55,7 @@ npm install -g gitlab-stale-branch-cleaner
 ```
 ---
 
-# Prerequisites
+## Prerequisites
 
 You will need:
 
@@ -71,6 +73,25 @@ export GITLAB_TOKEN=your_token_here
 ---
 
 ## Usage
+
+The CLI supports **two modes**:
+
+### Non-interactive mode (recommended for CI / automation)
+
+Provide all required options via flags.
+
+### Interactive mode (local usage)
+
+If required options are not provided, the CLI will prompt interactively:
+
+You will be prompted for:
+
+- GitLab access token
+- Project ID
+- Main branch
+- Stale days threshold
+- Excluded branches
+- Dry-run preference
 
 ### Dry-run (recommended first)
 
@@ -101,14 +122,17 @@ npx gitlab-stale-branch-cleaner \
   --dry-run=false
 ```
 
-**CLI Options**
+### CLI Options
 | Option         | Description                                        | Required |
 | -------------- | -------------------------------------------------- | -------- |
 | `--project-id` | GitLab project ID                                  | ✅        |
 | `--token`      | GitLab API token                                   | ✅        |
-| `--stale-days` | Inactivity threshold in days (default: 60)         | ❌        |
+| `--stale-days` | Inactivity threshold in days (default: 90)         | ❌        |
 | `--dry-run`    | Preview deletions without deleting (default: true) | ❌        |
 | `--exclude`    | Comma-separated branch names to exclude            | ❌        |
+| `--dry-run` | Preview deletions without deleting (default: true) | ❌ |
+| `--help` | Show help | ❌ |
+| `--version` | Show version | ❌ |
 
 Example:
 
@@ -134,13 +158,26 @@ cleanup_stale_branches:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
 ```
 
+### Exit Codes
+
+The CLI uses the following exit codes:
+
+| Code | Meaning |
+|----|--------|
+| `0` | Execution successful (including no stale branches found) |
+| `1` | Invalid usage or missing required inputs |
+| `2` | Runtime failure (GitLab API error, network issue, or partial deletion failure) |
+
+These exit codes make the tool safe to use in CI pipelines.
+
+
 **Best practice**
 
 Run initially with --dry-run=true, review output, then enable deletion.
 
 ---
 
-# Safety Guarantees
+## Safety Guarantees
 
 This tool **will not**:
 
@@ -154,7 +191,25 @@ Designed to be **boring, predictable, and safe**.
 
 ---
 
-# When should you use this?
+## Security Considerations
+
+- This tool uses a GitLab Personal Access Token only to:
+  - Read branch metadata
+  - Delete branches explicitly identified as stale
+
+- The token is:
+  - Never logged
+  - Never persisted
+  - Never transmitted outside GitLab APIs
+
+- Recommended practices:
+  - Use a token with minimum required scope (`api`)
+  - Prefer environment variables over CLI arguments
+  - Rotate tokens periodically
+
+---
+
+## When should you use this?
 
 - Medium to large GitLab repositories
 
@@ -166,7 +221,7 @@ Designed to be **boring, predictable, and safe**.
 
 ---
 
-# Contributing
+## Contributing
 
 Issues, suggestions, and PRs are welcome.
 
