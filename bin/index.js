@@ -57,6 +57,11 @@ program
     "Preview deletions without deleting (default: true)",
     true
   )
+  .option(
+    "--json",
+    "Output machine-readable JSON instead of human-readable logs",
+    false
+  )
   .addHelpText(
     "after",
     `
@@ -164,6 +169,7 @@ async function promptForMissingOptions() {
         typeof options.dryRun === "boolean"
           ? options.dryRun
           : interactiveInput.dryRun ?? true,
+      json: options.json ?? false,
     };
 
     /**
